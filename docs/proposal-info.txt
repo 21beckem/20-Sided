@@ -1,0 +1,69 @@
+Team Project Proposal
+
+Overview
+Over the final 5 weeks of the course, you will work in teams to design and build a fully functional full-stack web application. This capstone project is your opportunity to apply the concepts and technologies learned throughout the course to a real-world problem of your choosing.
+
+Objectives
+Apply full-stack development skills in a collaborative environment
+Design and implement a structured, maintainable web application
+Demonstrate the ability to work with databases, APIs, and UI/UX design
+Practice agile workflows and development best practices
+Technical Requirements
+Frontend
+Must be built using HTML, CSS, and vanilla JavaScript
+You may optionally use Svelte to build reusable UI components
+Should demonstrate:
+Use of DOM manipulation
+At least one form or user input flow
+Responsive design
+Backend
+Must be built using Node.js and Express
+Must expose a RESTful API with at least 4 distinct endpoints
+Must use MongoDB to store and retrieve data
+Include error handling and input validation
+Full-Stack Integration
+Frontend must communicate with the backend via HTTP requests (Fetch API)
+There should be at least one full CRUD interaction (e.g., users can create, read, update, and delete a resource)
+Authentication is optional but encouraged (e.g., session-based or token-based)
+Minimum Features & Functionality
+Your application must include:
+
+A clear user purpose or problem it solves
+At least two distinct user interfaces or views
+At least one data model in MongoDB with schema validation
+A project README that includes:
+Project description
+Team members
+Setup and installation instructions
+API documentation
+Known issues or future improvements
+Team Workflow Requirements
+Use Git and GitHub for version control
+Use a project management tool (e.g., Trello, Asana, Jira) to track progress
+Each team member must make regular, meaningful contributions
+Follow basic agile practices:
+Weekly sprint goals
+Short planning/retrospective notes (can be documented in GitHub issues or a shared doc)
+Final Deliverables
+✅ Live demo (link)
+✅ GitHub repo (public)
+✅ Project README
+✅ 5–10 minute team presentation
+01 Proposal
+Prepare a proposal for your team to present your idea to the instructor. This should include:
+
+A description of your project
+A list of the team members
+A list of the technologies you will use
+Your team management/communication strategy
+A list of the core features you will implement
+A list of additional features you may implement
+Wireframes or mockups of the user interface
+Your initial database schema
+A list of the API endpoints you will need to implement
+Many of the things in this proposal could change as you start implementation. This is ok. You will be able to change your mind about some of these things later on. The important thing is to have a solid plan in place before you start coding.
+
+
+What is the project? 
+
+Project is a dungeouns and dragons focused web app based around the virtual tabletop functionality primarily. Users can create an account, build their own maps, save maps to their own collection, save chunks of maps to their own collection, share these maps as public so that others can copy/use them, and start a "play session" where you can a make a sharable link to send to players so that they can view the map too while playing.

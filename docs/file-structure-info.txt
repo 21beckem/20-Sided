@@ -1,0 +1,206 @@
+ 20-Sided/
+  ├── client/                          # Frontend code
+  │   ├── src/
+  │   │   ├── pages/                   # Multiple HTML pages (multi-page app)
+  │   │   │   ├── index.html           # Landing/home page
+  │   │   │   ├── login.html           # Login page
+  │   │   │   ├── register.html        # Registration page
+  │   │   │   ├── dashboard.html       # User dashboard
+  │   │   │   ├── my-maps.html         # User's map collection
+  │   │   │   ├── map-editor.html      # Map creation/editing page
+  │   │   │   ├── my-chunks.html       # User's chunk collection
+  │   │   │   ├── public-maps.html     # Browse public maps
+  │   │   │   └── session.html         # Play session view
+  │   │   ├── components/              # Svelte components (reusable)
+  │   │   │   ├── Navbar.svelte
+  │   │   │   ├── MapBuilder.svelte
+  │   │   │   ├── MapGrid.svelte
+  │   │   │   ├── MapCard.svelte
+  │   │   │   ├── ChunkSelector.svelte
+  │   │   │   ├── SessionViewer.svelte
+  │   │   │   ├── Modal.svelte
+  │   │   │   └── Button.svelte
+  │   │   ├── js/                      # Page-specific JS (mounts Svelte components)
+  │   │   │   ├── index.js             # For index.html
+  │   │   │   ├── login.js             # For login.html
+  │   │   │   ├── register.js          # For register.html
+  │   │   │   ├── dashboard.js         # For dashboard.html
+  │   │   │   ├── my-maps.js           # For my-maps.html
+  │   │   │   ├── map-editor.js        # For map-editor.html
+  │   │   │   ├── my-chunks.js         # For my-chunks.html
+  │   │   │   ├── public-maps.js       # For public-maps.html
+  │   │   │   └── session.js           # For session.html
+  │   │   ├── services/                # API communication layer
+  │   │   │   ├── api.js               # Base API service
+  │   │   │   ├── auth-service.js
+  │   │   │   ├── map-service.js
+  │   │   │   ├── chunk-service.js
+  │   │   │   └── session-service.js
+  │   │   ├── utils/                   # Utility functions
+  │   │   │   ├── dom-helpers.js
+  │   │   │   ├── validators.js
+  │   │   │   └── storage.js
+  │   │   ├── css/
+  │   │   │   ├── global.css           # Global styles
+  │   │   │   ├── variables.css        # CSS variables/theme
+  │   │   │   ├── components/          # Component-specific styles
+  │   │   │   │   ├── navbar.css
+  │   │   │   │   ├── map-builder.css
+  │   │   │   │   ├── map-grid.css
+  │   │   │   │   └── cards.css
+  │   │   │   └── pages/               # Page-specific styles
+  │   │   │       ├── index.css
+  │   │   │       ├── map-editor.css
+  │   │   │       ├── my-maps.css
+  │   │   │       └── session.css
+  │   │   └── assets/
+  │   │       ├── images/
+  │   │       ├── icons/
+  │   │       └── tiles/               # Map tile assets
+  │   └── public/                      # Build output / static files
+  │
+  ├── server/                          # Backend code
+  │   ├── src/
+  │   │   ├── config/
+  │   │   │   ├── database.js          # MongoDB connection
+  │   │   │   └── env.js               # Environment variables
+  │   │   ├── models/
+  │   │   │   ├── User.js
+  │   │   │   ├── Map.js
+  │   │   │   ├── MapChunk.js
+  │   │   │   └── Session.js
+  │   │   ├── routes/
+  │   │   │   ├── index.js             # Route aggregator
+  │   │   │   ├── auth.routes.js
+  │   │   │   ├── map.routes.js
+  │   │   │   ├── chunk.routes.js
+  │   │   │   └── session.routes.js
+  │   │   ├── controllers/
+  │   │   │   ├── auth.controller.js
+  │   │   │   ├── map.controller.js
+  │   │   │   ├── chunk.controller.js
+  │   │   │   └── session.controller.js
+  │   │   ├── middleware/
+  │   │   │   ├── auth.middleware.js   # Authentication checks
+  │   │   │   ├── error.middleware.js  # Error handling
+  │   │   │   └── validation.middleware.js
+  │   │   ├── utils/
+  │   │   │   ├── validators.js
+  │   │   │   ├── hash.js              # Password hashing
+  │   │   │   └── token.js             # JWT/session token utils
+  │   │   └── app.js                   # Express app setup
+  │   └── server.js                    # Server entry point
+  │
+  ├── tests/                           # Test files
+  │   ├── unit/
+  │   │   ├── models/
+  │   │   └── controllers/
+  │   └── integration/
+  │       └── api/
+  │
+  ├── docs/                            # Additional documentation
+  │   ├── api.md                       # API documentation
+  │   └── setup.md                     # Setup guide
+  │
+  ├── scripts/                         # Utility scripts
+  │   ├── seed-db.js                   # Database seeding
+  │   └── reset-db.js
+  │
+  ├── .env.example                     # Example environment variables
+  ├── .env                             # Environment variables (gitignored)
+  ├── .gitignore
+  ├── package.json                     # Root dependencies (both client & server)
+  ├── package-lock.json
+  ├── vite.config.js                   # Vite build config for Svelte (optional)
+  ├── rollup.config.js                 # Or Rollup config (alternative to Vite)
+  ├── README.md
+  ├── PROPOSAL.md
+  └── .eslintrc.js                     # Optional: Linting config
+
+  Note: You'll need a build tool (Vite or Rollup) to compile Svelte components.
+  The build tool creates bundles for each page's JS file.
+
+  Key Design Decisions
+
+  Frontend Organization (Multi-Page Application with Svelte)
+
+  - pages/ - Multiple HTML pages (not a single-page app)
+    * Each page is a separate HTML file with its own URL
+    * Traditional navigation between pages using links/redirects
+    * Example: /index.html, /map-editor.html, /session.html
+
+  - components/ - Svelte components (.svelte files)
+    * Reusable UI components like Navbar, MapBuilder, MapGrid
+    * Each component encapsulates its own template, logic, and styles
+    * Imported and mounted by page-specific JS files
+
+  - js/ - Page initialization scripts
+    * Each HTML page has a corresponding JS file
+    * Mounts Svelte components into the page
+    * Handles page-specific logic and interactions
+    * Example: map-editor.js imports and mounts MapBuilder.svelte
+
+  - services/ - Centralized API communication layer
+    * Shared across all pages for consistency
+    * Handles authentication, data fetching, error handling
+
+  - utils/ - Shared utility functions
+    * DOM helpers, validators, local storage management
+
+  Backend Organization
+
+  - MVC Pattern - Models, Routes, Controllers separated for maintainability
+  - config/ - Centralized configuration management
+  - middleware/ - Authentication, validation, and error handling
+  - utils/ - Shared backend utilities
+
+  How Multi-Page + Svelte Works
+
+  1. Each HTML page links to its corresponding JS file
+     Example in map-editor.html:
+     <script type="module" src="../js/map-editor.js"></script>
+
+  2. The JS file imports and mounts Svelte components
+     Example in map-editor.js:
+     import MapBuilder from '../components/MapBuilder.svelte';
+     new MapBuilder({ target: document.getElementById('app') });
+
+  3. Svelte components are built/bundled using a build tool (Vite/Rollup)
+  4. Navigation happens via traditional HTML links (<a href="my-maps.html">)
+
+  Benefits of This Structure
+
+  1. Separation of Concerns - Clear boundaries between frontend/backend
+  2. Scalability - Easy to add new features without cluttering
+  3. Maintainability - Logical organization makes code easy to find
+  4. Testing - Dedicated test directory with unit/integration tests
+  5. Team Collaboration - Clear structure helps team members know where to add code
+  6. SEO Friendly - Multiple HTML pages are easier for search engines
+  7. Simpler Routing - No need for client-side routing library
+  8. Progressive Enhancement - Pages work without JavaScript, enhanced with Svelte
+
+  Environment Variables (.env)
+
+  PORT=3000
+  MONGODB_URI=mongodb://localhost:27017/20-sided
+  SESSION_SECRET=your-secret-key-here
+  NODE_ENV=development
+
+  Required NPM Packages
+
+  Frontend (devDependencies):
+  - svelte
+  - vite (or rollup with @rollup/plugin-node-resolve, @rollup/plugin-commonjs)
+  - @sveltejs/vite-plugin-svelte (if using Vite)
+  - rollup-plugin-svelte (if using Rollup)
+
+  Backend (dependencies):
+  - express
+  - dotenv
+  - bcrypt or bcryptjs (password hashing)
+  - express-session or jsonwebtoken (authentication)
+  - cors
+
+
+  Backend (devDependencies):
+  - nodemon (auto-restart during development)
