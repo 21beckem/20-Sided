@@ -1,12 +1,12 @@
-# Team Project Proposal: 20-Sided
+# Team Project Proposal: The Dragon's Quill
 
 ## Project Description
 
-**20-Sided** is a Dungeons & Dragons focused web application built around virtual tabletop functionality. The platform enables D&D players and Dungeon Masters to create, manage, and share interactive maps for their gaming sessions in real-time.
+**The Dragon's Quill** is a Dungeons & Dragons focused web application built around virtual tabletop functionality. The platform enables D&D players and Dungeon Masters to create, manage, and share interactive maps for their gaming sessions in real-time.
 
 ### What Problem Does It Solve?
 
-20-Sided addresses the need for an accessible, web-based virtual tabletop that allows DMs to:
+The Dragon's Quill addresses the need for an accessible, web-based virtual tabletop that allows DMs to:
 - Create and customize battle maps and dungeon layouts
 - Build reusable map components for faster map creation
 - Share maps with the community
@@ -23,20 +23,21 @@
 
 ### Frontend
 - **HTML5** - Structure and markup
-- **CSS3** - Styling and responsive design
+- **CSS** - Styling and responsive design
 - **Vanilla JavaScript** - DOM manipulation and interactivity
-- **Svelte** (optional) - Reusable UI components
+- **Svelte** - Reusable UI components
 - **Fetch API** - HTTP communication with backend
+- **THREEjs** - 3D Map visualization
+- **[PlayroomKit](https://joinplayroom.com/)** - Live json object sharing between map host and viewers
 
 ### Backend
 - **Node.js** - Runtime environment
 - **Express.js** - Web application framework
 - **MongoDB** - Database for data persistence
-- **Mongoose** - MongoDB object modeling
 
 ### Development Tools
 - **Git/GitHub** - Version control
-- **Project Management Tool** - Trello/Asana/Jira (TBD)
+- **Project Management Tool** - [Trello](https://trello.com/b/qQcDzcdq/dd-project-board)
 
 ## Team Management & Communication Strategy
 
@@ -45,21 +46,15 @@
 - Pull request reviews before merging
 - Regular commits with meaningful messages
 
-### Agile Practices
-- Weekly sprint planning sessions
-- Daily stand-ups (or async updates)
-- Sprint retrospectives
-- Task tracking through project management tool
-
 ### Communication Channels
-(To be determined by team)
+- Microsoft Teams
 
 ## Core Features
 
 1. **User Authentication**
-   - Account creation and login
+   - Account register and login
+   - Google O-Auth
    - Session management
-   - User profile management
 
 2. **Map Builder**
    - Grid-based map creation interface
@@ -70,6 +65,7 @@
 3. **Map Management**
    - Save maps to personal collection
    - Edit existing maps
+   - Duplicate maps
    - Delete maps
    - View all saved maps
 
@@ -82,7 +78,7 @@
 5. **Public Sharing**
    - Mark maps as public/private
    - Browse community shared maps
-   - Copy/use public maps
+   - Duplicate public maps to personal collection
 
 6. **Play Sessions**
    - Start a play session with a specific map
@@ -92,14 +88,12 @@
 
 ## Additional Features (Stretch Goals)
 
+- **Export/Import**: Save maps as JSON for backup/sharing
 - **Token Management**: Place and move character tokens on maps
 - **Fog of War**: Hide/reveal portions of the map during play
 - **Drawing Tools**: Add temporary markers, lines, or notes during sessions
-- **Chat System**: Built-in text chat for play sessions
 - **Dice Roller**: Integrated dice rolling functionality
 - **Map Templates**: Pre-built map templates for common scenarios
-- **Export/Import**: Save maps as JSON for backup/sharing
-- **Advanced Permissions**: Different permission levels for collaborators
 - **Mobile Responsiveness**: Optimized experience for tablets/phones
 
 ## Wireframes/Mockups
@@ -112,9 +106,9 @@
 ```javascript
 {
   _id: ObjectId,
-  username: String (unique, required),
+  name: String (required),
   email: String (unique, required),
-  password: String (hashed, required),
+  oauthToken: String (unique, required),
   createdAt: Date,
   updatedAt: Date
 }
@@ -173,7 +167,7 @@
 ## Project Requirements Checklist
 
 ### Technical Requirements
-- ✅ Frontend: HTML, CSS, Vanilla JavaScript (optional Svelte)
+- ✅ Frontend: HTML, CSS, Vanilla JavaScript, Svelte
 - ✅ DOM manipulation and form input flows
 - ✅ Responsive design
 - ✅ Backend: Node.js and Express
@@ -186,7 +180,7 @@
 
 ### Minimum Features
 - ✅ Clear user purpose (virtual tabletop for D&D)
-- ✅ Multiple user interfaces (map builder, session view, collections)
+- ✅ Multiple user interfaces (map builder, collections)
 - ✅ Project README with required sections
 
 
@@ -226,11 +220,4 @@ The project will be considered successful when:
 
 ## Notes
 
-This proposal serves as the initial plan for the 20-Sided project. We understand that requirements and features may evolve as we begin implementation and discover technical constraints or opportunities. We will maintain flexibility while staying focused on delivering the core features outlined above.
-
-
-
-
-- delete tests folder
-- move scripts into server folder
-- delete svelte component css files
+This proposal serves as the initial plan for The Dragon's Quill project. We understand that requirements and features may evolve as we begin implementation and discover technical constraints or opportunities. We will maintain flexibility while staying focused on delivering the core features outlined above.

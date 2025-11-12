@@ -1,9 +1,9 @@
-# 20-Sided
+# Dragon's Quill
 Your next D&D Teammate
 
 ## Project Description
 
-20-Sided is a Dungeons & Dragons focused web application centered around virtual tabletop functionality. It provides a comprehensive platform for D&D players and Dungeon Masters to create, manage, and share interactive maps for their gaming sessions.
+Dragon's Quill is a Dungeons & Dragons focused web application centered around virtual tabletop functionality. It provides a comprehensive platform for D&D players and Dungeon Masters to create, manage, and share interactive maps for their gaming sessions.
 
 ### Core Features
 
