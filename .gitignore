@@ -10,7 +10,6 @@ server/package-lock.json
 .env
 
 # Build output
-client/public/
 dist/
 build/
 
