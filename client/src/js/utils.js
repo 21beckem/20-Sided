@@ -1,17 +1,18 @@
-import { mount } from 'svelte'
-import Nav from '../components/Nav.svelte'
-import Head from '../components/Head.svelte'
+import { mount } from 'svelte';
+import Nav from '../components/Nav.svelte';
+import Head from '../components/Head.svelte';
 
-export function mountComponent(component, targetSelector) {
+export function mountComponent(component, targetSelector, props = {}) {
     let target = document.querySelector(targetSelector);
     if (target) {
         mount(component, {
-            target
+            target,
+            props
         });
     }
 }
 
-export function mountOnEveryPage() {
+export function mountOnEveryPage(isProtected=false) {
     mountComponent(Head, 'head');
-    mountComponent(Nav, 'body > nav');
+    mountComponent(Nav, 'body > nav', { isProtected: isProtected });
 }
