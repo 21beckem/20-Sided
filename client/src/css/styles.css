@@ -3,3 +3,7 @@
     --secondary-color: #f2f2f2;
     --font-color: rgb(116, 93, 68);
 }
+
+.cl-cardBox, .cl-sinIn-start, .cl-internal-dSpd3d{
+    background-image: url("/images/oldScroll.webp");
+}

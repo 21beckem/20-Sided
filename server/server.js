@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-// import mongodb from "./database/index.js";
+import mongodb from "./database/index.js";
 import baseRoutes from "./routes/index.js";
 import { clerkMiddleware } from "@clerk/express";
 import cors from 'cors';
