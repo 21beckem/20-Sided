@@ -2,6 +2,13 @@
     import { onMount } from "svelte";
     import { Clerk } from "@clerk/clerk-js";
 
+
+    // let authRef;
+    // let { isProtected = true }  = $props();
+    // function signUpHandler(){
+    //     ClerkComponents.openSignUp(authRef);
+    // }
+
     let signInBtn = $state(null);
     const { isProtected = false } = $props();
     
