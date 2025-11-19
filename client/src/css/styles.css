@@ -11,11 +11,11 @@
 }
 
 /* Clerk sign-in modal overrides */
-.cl-root,
-.cl-rootBox,
-.cl-signIn,
-.cl-signIn-root,
-.cl-cardBox {
+.cl-root:not(:has(.cl-avatarBox)),
+.cl-rootBox:not(:has(.cl-avatarBox)),
+.cl-signIn:not(:has(.cl-avatarBox)),
+.cl-signIn-root:not(:has(.cl-avatarBox)),
+.cl-cardBox:not(:has(.cl-avatarBox)) {
     background-color: transparent !important;
     background-image: url("/images/oldScroll.webp");
     background-size: 140% 95%;
@@ -37,11 +37,19 @@
     max-width: 420px;
     margin: 1.5rem auto 0;
     min-height: 600px;
+    transform: translateY(1rem);
 }
 
 .cl-footer {
     background: transparent !important;
+    opacity: 0 !important;
     border-top: none !important;
+}
+.cl-userButtonPopoverFooter {
+    display: none !important;
+}
+.cl-userButtonPopoverMain {
+    background-color: var(--scroll-highlight-color);
 }
 
 .cl-card *,
@@ -105,7 +113,7 @@
     position: absolute !important;
     top: 8.3rem !important;
     right: -1.5rem !important;
-    transform: none !important;
+    transform: translate(10px, 0) !important;
 }
 
 .cl-internal-x0fvpz {
@@ -114,4 +122,10 @@
 
 .cl-form {
     gap: 0.5rem !important;
+}
+.cl-card .cl-main {
+    gap: 0.5rem !important;
+}
+.cl-userButtonBox:has(.cl-avatarBox) {
+    transform: scale(1.4);
 }
