@@ -1,9 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap');
+
 :root {
-    --primary-color: #333;
+    --primary-color: #4a4a4a;
     --secondary-color: #f2f2f2;
-    --font-color: rgb(116, 93, 68);
+    --font-color: rgb(221, 162, 98);
+    --scroll-font: 'IM Fell English', 'Times New Roman', serif;
+    --scroll-font-color: #2b1708;
+    --scroll-accent-color: #7c4317;
+    --scroll-highlight-color: #f9e1b0;
 }
 
-.cl-cardBox, .cl-sinIn-start, .cl-internal-dSpd3d{
+/* Clerk sign-in modal overrides */
+.cl-root,
+.cl-rootBox,
+.cl-signIn,
+.cl-signIn-root,
+.cl-cardBox {
+    background-color: transparent !important;
     background-image: url("/images/oldScroll.webp");
+    background-size: 140% 95%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    box-shadow: none;
+}
+
+.cl-card {
+    background-color: transparent !important;
+    background-image: none !important;
+    padding: 1rem;
+    border: none;
+    box-shadow: none;
+    font-family: var(--scroll-font) !important;
+    color: var(--scroll-font-color) !important;
+    font-size: 0.85rem;
+    max-width: 420px;
+    margin: 1.5rem auto 0;
+    min-height: 600px;
+}
+
+.cl-footer {
+    background: transparent !important;
+    border-top: none !important;
+}
+
+.cl-card *,
+.cl-footer * {
+    font-family: var(--scroll-font) !important;
+    color: var(--scroll-font-color) !important;
+}
+
+.cl-card h1,
+.cl-card h2,
+.cl-card h3 {
+    color: var(--scroll-accent-color) !important;
+    letter-spacing: 0.05em;
+}
+
+.cl-card label,
+.cl-card .cl-formFieldLabel {
+    color: var(--scroll-accent-color) !important;
+    font-size: 1em;
+}
+
+.cl-card input,
+.cl-card .cl-input {
+    background: rgba(255, 255, 255, 0.6) !important;
+    border: 1px solid var(--scroll-accent-color) !important;
+    color: var(--scroll-font-color) !important;
+    font-size: 1em;
+}
+
+.cl-card .cl-button,
+.cl-card .cl-button * {
+    background: var(--scroll-accent-color) !important;
+    color: var(--scroll-highlight-color) !important;
+    font-size: 1em;
+    border: none;
+}
+
+.cl-footer {
+    font-size: 0.95rem;
+    position: relative;
+    top: -7.7rem !important;
+    padding: 0 !important;
+}
+
+.cl-internal-1dauvpw {
+    position: relative;
+    margin-top: -1.5rem;
+}
+
+.cl-socialButtonsRoot,
+.cl-socialButtons {
+    gap: 0.35rem !important;
+}
+
+.cl-socialButtons button,
+.cl-socialButtons button * {
+    font-size: 0.95em !important;
+}
+
+.cl-modalCloseButton {
+    position: absolute !important;
+    top: 8.3rem !important;
+    right: -1.5rem !important;
+    transform: none !important;
+}
+
+.cl-internal-x0fvpz {
+    margin-top: 2.3rem;
+}
+
+.cl-form {
+    gap: 0.5rem !important;
 }
