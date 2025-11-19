@@ -22,10 +22,17 @@
             if (isProtected) {
                 clerk.redirectToSignIn();
             } else {
-                signInBtn.innerHTML = 'Sign In';
+                signInBtn.innerHTML = 'Sign In / Register';
                 signInBtn.onclick = () => clerk.openSignIn();
             }
         }
+
+        // make span elements clickable
+        document.querySelectorAll('.right span[href]').forEach((span) => {
+            span.addEventListener('click', () => {
+                window.location.href = span.getAttribute('href');
+            });
+        })
     });
 
 </script>
@@ -33,10 +40,10 @@
 <div class="row">
     <img src="/images/DragonQuill.png" alt="Logo">
     <h1>Dragon's Quill</h1>
-    <div style="
-    position: absolute;
-    right: 2rem;
-    cursor: pointer;" bind:this={signInBtn}></div>
+    <div class="right">
+        <span bind:this={signInBtn} class="register-btn"></span>
+        <a href="/browse/">Browse</a>
+    </div>
 </div>
 
 <style>
@@ -69,10 +76,27 @@ h1 {
         1px 1px 0 #000;
 }
 
-.user-btn {
+.right {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
     position: absolute;
     right: 2rem;
     cursor: pointer;
+    gap: 2rem;
+    font-weight: normal;
+    color: var(--font-color);
+    font-family: var(--scroll-font);
+    font-size: large;
+}
+.right a {
+    text-decoration: none;
+    color: inherit;
+}
+.right .register-btn {
+    border: 1px solid var(--font-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
 }
 
 </style>

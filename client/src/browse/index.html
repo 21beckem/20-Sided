@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+section.search input.search {
+  background-color: inherit;
+  border: none;
+  border-bottom: 1px solid var(--scroll-accent-color);
+  color: var(--scroll-font-color);
+  font-size: 1em;
+  width: calc(100% - 1em);
+  padding: 0.5em;
+}
+    </style>
+  </head>
+  <body>
+    <nav></nav>
+
+    <main>
+      <section class="search">
+        <input class="search" type="text" placeholder="Search...">
+      </section>
+      <section class="filter">
+        <label for="type">Type: <select name="type">
+          <option value="maps">Maps</option>
+          <option value="chunks">Chunks</option>
+          <option value="all">All</option>
+        </select></label>
+      </section>
+    </main>
+    <script type="module" src="/js/pages/browse.js"></script>
+  </body>
+</html>
