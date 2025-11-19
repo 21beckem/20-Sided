@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+section.search input.search {
+  background-color: inherit;
+  border: none;
+  border-bottom: 1px solid var(--scroll-accent-color);
+  color: var(--scroll-font-color);
+  font-size: 1em;
+  width: calc(100% - 1em);
+  padding: 0.5em;
+}
+
+section header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  font-size: 1em;
+  font-weight: bold;
+  color: var(--scroll-accent-color);
+  font-family: var(--scroll-font);
+}
+section header * {
+  pointer-events: none;
+}
+section.filter div.filters {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-in-out, padding 0.2s ease-in-out;
+}
+section.filter div.filters.open {
+  padding: 0.5rem 0;
+  max-height: 2rem;
+}
+section.filter div.filters label {
+  white-space: nowrap;
+}
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  </head>
+  <body>
+    <nav></nav>
+
+    <main>
+
+      <section class="search">
+        <input class="search" type="text" placeholder="Search...">
+      </section>
+
+
+      <section class="filter">
+        <header onclick="this.nextElementSibling.classList.toggle('open')" style="cursor: pointer;">
+          <span>Filters</span>
+          <i class="fa-solid fa-angle-down"></i>
+        </header>
+        <div class="filters">
+          <label for="type">Type: <select name="type">
+            <option value="maps">Maps</option>
+            <option value="chunks">Chunks</option>
+            <option value="all">All</option>
+          </select></label>
+          
+          <label for="author">Author: <select name="author">
+            <option value="anyone">Anyone</option>
+            <option value="me">Me</option>
+          </select></label>
+          
+          <label for="results">Results per page: <select name="results">
+            <option>25</option>
+            <option>50</option>
+            <option>75</option>
+          </select></label>
+        </div>
+      </section>
+
+
+      <section class="results">
+        <header>Results</header>
+      </section>
+    </main>
+    <script type="module" src="/js/pages/browse.js"></script>
+  </body>
+</html>
