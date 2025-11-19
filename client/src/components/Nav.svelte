@@ -39,7 +39,7 @@
 
 <div class="row">
     <img src="/images/DragonQuill.png" alt="Logo">
-    <h1>Dragon's Quill</h1>
+    <h1><a href="/">The Dragon's Quill</a></h1>
     <div class="right">
         <span bind:this={signInBtn} class="register-btn"></span>
         <a href="/browse/">Browse</a>
@@ -67,7 +67,7 @@ img {
 }
 
 h1 {
-    margin-left: 1rem;
+    margin: 0.75rem 1.5rem;
     font-family: var(--scroll-font);
     text-shadow:
         -1px -1px 0 #000,
@@ -81,7 +81,7 @@ h1 {
     flex-direction: row-reverse;
     align-items: center;
     position: absolute;
-    right: 2rem;
+    right: 1.5rem;
     cursor: pointer;
     gap: 2rem;
     font-weight: normal;
@@ -89,7 +89,7 @@ h1 {
     font-family: var(--scroll-font);
     font-size: large;
 }
-.right a {
+a {
     text-decoration: none;
     color: inherit;
 }
