@@ -120,26 +120,25 @@ The Dragon's Quill addresses the need for an accessible, web-based virtual table
 
 ## API Endpoints
 
-### Authentication
-- `POST /api/auth/register` - Create new user account
-- `POST /api/auth/login` - Login user
-- `POST /api/auth/logout` - Logout user
-- `GET /api/auth/me` - Get current user info
-
-### Maps
-- `GET /api/maps` - Get all maps for current user
+### Maps / Chunks
+(map/chunk type will be determined by counting number of chunks)
 - `GET /api/maps/:id` - Get specific map
 - `POST /api/maps` - Create new map
 - `PUT /api/maps/:id` - Update map
-- `DELETE /api/maps/:id` - Delete map
-- `GET /api/maps/public` - Get all public maps
 
-### Map Chunks
-- `GET /api/chunks` - Get all chunks for current user
-- `GET /api/chunks/:id` - Get specific chunk
-- `POST /api/chunks` - Create new chunk
-- `PUT /api/chunks/:id` - Update chunk
-- `DELETE /api/chunks/:id` - Delete chunk
+### Search
+- `GET /api/search` - Search all maps
+   - Search params:
+      - `type`:  *String/Enum* -> `all`, `map`, `chunk`
+      - `author`:  *String/Enum* -> `anyone`, `me`
+      - `limit`:  *int*
+      - `query`:  *String*
+   - Defaults:
+      - `type`:  `all`
+      - `author`:  `anyone`
+      - `limit`:  `25`
+      - `query`:  (don't filter by text at all)
+
 
 ## Project Requirements Checklist
 
