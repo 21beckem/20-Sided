@@ -24,12 +24,12 @@ app.use("/", baseRoutes);
 
 app.use(clerkMiddleware());
 // Initialize the database connection, we pass a callback into the function to handle any errors that may occur during the connection process.
-// mongodb.initDb((err) => {
-//   if (err) {
-//     console.error("Error initializing database:", err);
-//     return;
-//   } else
-//     // Start the server after successful initialization of the database
+mongodb.initDb((err) => {
+  if (err) {
+    console.error("Error initializing database:", err);
+    return;
+  } else
+    // Start the server after successful initialization of the database
     app.listen(port, () => console.log(`Server is listening on port ${port}...`));
-// });
+});
 

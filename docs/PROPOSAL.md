@@ -102,17 +102,6 @@ The Dragon's Quill addresses the need for an accessible, web-based virtual table
 
 ## Database Schema
 
-### User Schema
-```javascript
-{
-  _id: ObjectId,
-  name: String (required),
-  email: String (unique, required),
-  oauthToken: String (unique, required),
-  createdAt: Date,
-  updatedAt: Date
-}
-```
 
 ### Map Schema
 ```javascript
@@ -123,18 +112,6 @@ The Dragon's Quill addresses the need for an accessible, web-based virtual table
   owner: ObjectId (ref: User),
   isPublic: Boolean (default: false),
   map: Mixed (JSON structure representing map layout),
-  createdAt: Date,
-  updatedAt: Date
-}
-```
-
-### MapChunk Schema
-```javascript
-{
-  _id: ObjectId,
-  name: String (required),
-  owner: ObjectId (ref: User),
-  chunk: Mixed (JSON structure of map portion),
   createdAt: Date,
   updatedAt: Date
 }
