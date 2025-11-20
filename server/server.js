@@ -3,7 +3,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import mongodb from "./database/index.js";
 import baseRoutes from "./routes/index.js";
-import { clerkMiddleware } from "@clerk/express";
 import cors from 'cors';
 
 // Because we are using ESModules instead of CommonJS modules these two expected variables will not get set. We can build them manually to avoid any problems later
@@ -22,7 +21,6 @@ app.use(cors());
 app.use("/", baseRoutes);
 
 
-app.use(clerkMiddleware());
 // Initialize the database connection, we pass a callback into the function to handle any errors that may occur during the connection process.
 mongodb.initDb((err) => {
   if (err) {
