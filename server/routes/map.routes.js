@@ -59,8 +59,70 @@ router.get('/:id', async (req, res) => {
 // - `PUT /maps/:id` - Update map
 router.put('/:id', async (req, res) => {
     const {id} = req.params;
+
+    // Validate ObjectId
+    if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).json({
+            worked: false,
+            error: 'Invalid map ID'
+        });
+        return;
+    }
+
+    if (!req.body || !req.body.json) {
+        res.status(400).json({
+            worked: false,
+            error: 'Missing JSON'
+        });
+        return;
+    }
+
+    let json = false;
+    try {
+        json = JSON.parse(req.body.json);
+    } catch (e) {
+        res.status(400).json({
+            worked: false,
+            error: 'Invalid JSON'
+        });
+        return;
+    }
+
+    if (!json.map) {
+        res.status(400).json({
+            worked: false,
+            error: 'Missing map'
+        });
+        return;
+    }
+    if (json.map.children.length === 0) {
+        res.status(400).json({
+            worked: false,
+            error: 'Map must have at least one chunk'
+        });
+        return;
+    }
+
+    // Set type based on number of chunks
+    json.type = json.map.children.length > 1 ? 'map' : 'chunk';
+
+    // Update the document
+    let result = await mongodb.getDb().collection('maps').updateOne(
+        { _id: new mongodb.ObjectId(id) },
+        { $set: json }
+    );
+
+    if (result.matchedCount === 0) {
+        res.status(404).json({
+            worked: false,
+            error: 'Map not found'
+        });
+        return;
+    }
+
     res.status(200).json({
         worked: true,
+        modified: result.modifiedCount,
         id: id
     });
 });
