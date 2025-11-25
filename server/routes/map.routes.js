@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import mongodb from "../database/index.js";
+import authorize from '../middleware/auth.middleware.js';
 const router = Router();
 
 // `POST /maps` - Create new map
-router.post('/', async (req, res) => {
+router.post('/', authorize, async (req, res) => {
     if (!req.body || !req.body.json) {
         res.status(400).json({
             worked: false,
@@ -42,6 +43,9 @@ router.post('/', async (req, res) => {
     // set type based on number of chunks
     json.type = json.map.children.length > 1 ? 'map' : 'chunk';
 
+    // set the owner
+    json.owner = res.locals.uid;
+
     let result = await mongodb.getDb().collection('maps').insertOne(json);
 
     res.status(200).json(result);
@@ -57,7 +61,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // - `PUT /maps/:id` - Update map
-router.put('/:id', async (req, res) => {
+router.put('/:id', authorize, async (req, res) => {
     const {id} = req.params;
 
     // Validate ObjectId
@@ -108,7 +112,10 @@ router.put('/:id', async (req, res) => {
 
     // Update the document
     let result = await mongodb.getDb().collection('maps').updateOne(
-        { _id: new mongodb.ObjectId(id) },
+        {
+            _id: new mongodb.ObjectId(id),
+            owner: res.locals.uid
+        },
         { $set: json }
     );
 
