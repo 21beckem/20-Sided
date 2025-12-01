@@ -28,10 +28,12 @@ async function fetchResults() {
     const author = authorSelect.value;
     const limit = 25;
 
-    // Build query string
+    // Wait until Clerk is mounted
+    await utils.waitForClerkToInit();
+    
     const params = new URLSearchParams({
         type,
-        author,
+        author: author === 'me' ? window.clerk.user.id : author,
         limit: limit.toString()
     });
 
@@ -69,8 +71,7 @@ function displayResults(results, count) {
     resultsHeader.textContent = `Results (${count})`;
 
     if (results.length === 0) {
-        resultsSection.innerHTML = '<div class="result-card error">No results found</div>';
-        return;
+        return displayError('No results found');
     }
 
     resultsSection.innerHTML = results.map(createResultCard).join('');
@@ -104,20 +105,7 @@ function createResultCard(result) {
 
 // Display error message
 function displayError(message) {
-
-    resultsHeader.innerHTML = 'Results';
-
-    const errorDiv = document.createElement('div');
-    errorDiv.style.cssText = `
-        padding: 1rem;
-        margin: 1rem;
-        background-color: rgba(255, 0, 0, 0.1);
-        border: 1px solid rgba(255, 0, 0, 0.3);
-        border-radius: 4px;
-        color: #ff6b6b;
-    `;
-    errorDiv.textContent = message;
-    resultsSection.appendChild(errorDiv);
+    resultsSection.innerHTML = '<div class="result-card error">' + message + '</div>';
 }
 
 // Debounced search function (300ms delay)
