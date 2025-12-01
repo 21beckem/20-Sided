@@ -30,10 +30,15 @@ async function fetchResults() {
 
     // Wait until Clerk is mounted
     await utils.waitForClerkToInit();
+
+    // hide me option if not signed in
+    if (!window.clerk.isSignedIn) {
+        document.querySelector('section.filter .author-dropdown').style.cssText = 'opacity: 0.5; pointer-events: none';
+    }
     
     const params = new URLSearchParams({
         type,
-        author: author === 'me' ? window.clerk.user.id : author,
+        author: author === 'me' && window.clerk.isSignedIn ? window.clerk.user.id : author,
         limit: limit.toString()
     });
 
