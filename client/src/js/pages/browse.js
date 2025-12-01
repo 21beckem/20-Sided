@@ -5,7 +5,8 @@ utils.mountOnEveryPage();
 const searchInput = document.querySelector('section.search input.search');
 const typeSelect = document.querySelector('select[name="type"]');
 const authorSelect = document.querySelector('select[name="author"]');
-const resultsSection = document.querySelector('section.results');
+const resultsHeader = document.querySelector('section.results > header');
+const resultsSection = document.querySelector('section.results #results');
 
 // Debounce function to prevent too many API calls
 function debounce(func, wait) {
@@ -61,108 +62,50 @@ async function fetchResults() {
 
 // Display search results
 function displayResults(results, count) {
-    // Clear previous results except the header
-    const header = resultsSection.querySelector('header');
+
     resultsSection.innerHTML = '';
-    resultsSection.appendChild(header);
 
     // Update header with count
-    header.textContent = `Results (${count})`;
+    resultsHeader.textContent = `Results (${count})`;
 
     if (results.length === 0) {
-        const noResults = document.createElement('p');
-        noResults.textContent = 'No results found';
-        noResults.style.padding = '1rem';
-        noResults.style.textAlign = 'center';
-        noResults.style.color = 'var(--scroll-font-color)';
-        resultsSection.appendChild(noResults);
+        resultsSection.innerHTML = '<div class="result-card error">No results found</div>';
         return;
     }
 
-    // Create result cards
-    results.forEach(result => {
-        const card = createResultCard(result);
-        resultsSection.appendChild(card);
-    });
+    resultsSection.innerHTML = results.map(createResultCard).join('');
+}
+
+function isObjectEmpty(obj) {
+  // First, ensure the input is a non-null object
+  if (obj === null || typeof obj !== 'object') {
+    return false; // Or throw an error, depending on desired behavior
+  }
+  return Object.keys(obj).length === 0;
 }
 
 // Create a card for each result
 function createResultCard(result) {
-    const card = document.createElement('div');
-    card.className = 'result-card';
-    card.style.cssText = `
-        padding: 1rem;
-        margin: 0.5rem 1rem;
-        border: 1px solid var(--scroll-accent-color);
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.2s;
+    let jsonString = isObjectEmpty(result.map) ? '' : encodeURIComponent(JSON.stringify(result.map));
+    return `
+        <a class="result-card" href="/map/${result._id}">
+            <iframe src="https://21beckem.github.io/WorldQuill/preview.html?timestamp=${Date.now()}#${jsonString}" alt="${result.title || 'Untitled'}"></iframe>
+            <div class="details">
+                <h3>${result.title || 'Untitled'}</h3>
+                <p>${result.description || 'No description available'}</p>
+                <div class="meta">
+                    <span class="type">${result.type || 'Unknown'}</span>
+                    <span class="author">${result.author || 'Unknown'}</span>
+                </div>
+            </div>
+        </a>
     `;
-
-    const title = document.createElement('h3');
-    title.textContent = result.title || 'Untitled';
-    title.style.cssText = `
-        margin: 0 0 0.5rem 0;
-        color: var(--scroll-accent-color);
-        font-family: var(--scroll-font);
-    `;
-
-    const description = document.createElement('p');
-    description.textContent = result.description || 'No description available';
-    description.style.cssText = `
-        margin: 0 0 0.5rem 0;
-        color: var(--scroll-font-color);
-        font-size: 0.9em;
-    `;
-
-    const meta = document.createElement('div');
-    meta.style.cssText = `
-        display: flex;
-        gap: 1rem;
-        font-size: 0.8em;
-        color: var(--scroll-accent-color);
-        opacity: 0.7;
-    `;
-
-    const typeSpan = document.createElement('span');
-    typeSpan.textContent = `Type: ${result.type || 'unknown'}`;
-
-    const chunksSpan = document.createElement('span');
-    const chunkCount = result.map?.children?.length || 0;
-    chunksSpan.textContent = `Chunks: ${chunkCount}`;
-
-    meta.appendChild(typeSpan);
-    meta.appendChild(chunksSpan);
-
-    card.appendChild(title);
-    card.appendChild(description);
-    card.appendChild(meta);
-
-    // Add hover effect
-    card.addEventListener('mouseenter', () => {
-        card.style.backgroundColor = 'rgba(var(--scroll-accent-color-rgb, 255, 255, 255), 0.1)';
-    });
-    card.addEventListener('mouseleave', () => {
-        card.style.backgroundColor = 'transparent';
-    });
-
-    // Navigate to map detail page on click
-    card.addEventListener('click', () => {
-        if (result._id) {
-            window.location.href = `/map/${result._id}`;
-        }
-    });
-
-    return card;
 }
 
 // Display error message
 function displayError(message) {
-    const header = resultsSection.querySelector('header');
-    resultsSection.innerHTML = '';
-    resultsSection.appendChild(header);
 
-    header.textContent = 'Results';
+    resultsHeader.innerHTML = 'Results';
 
     const errorDiv = document.createElement('div');
     errorDiv.style.cssText = `
