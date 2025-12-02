@@ -4,15 +4,20 @@
     <style>
       main{
         display: flex;
+        
       }
 
-      div{
-        margin-right: 1em;
+      #hero{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       h2{
         font-family: var(--scroll-font);
       }
       .infoBox{
+        position: relative;
         box-sizing: 5em;
         flex-wrap: wrap;
         margin: 0 auto;
@@ -30,14 +35,17 @@
     <nav></nav>
     <script type="module" src="/js/pages/index.js"></script>
     <main>
-      <div class="infoBox">
-          <h2>Dragon's Quill</h2>
-          <p>
-            Gather around young explorers and create a map for your party to inhabit. <br>
-            Be it dungeon or open world locations, <br>
-            our Dragon's Quill map builder is only limited by <br> 
-            ones imagination!
-          </p>
+      <div id="hero">
+        <img src="/images/heroMap.png" alt="Hero Map Image" />
+        <div class="infoBox">
+            <h2>Dragon's Quill</h2>
+            <p>
+              Gather around young explorers and create a map for your party to inhabit. <br>
+              Be it dungeon or open world locations, <br>
+              our Dragon's Quill map builder is only limited by <br> 
+              ones imagination!
+            </p>
+        </div>
       </div>
     </main>
   </body>
