@@ -16,3 +16,9 @@ export function mountOnEveryPage(isProtected=false) {
     mountComponent(Head, 'head');
     mountComponent(Nav, 'body > nav', { isProtected: isProtected });
 }
+
+export async function waitForClerkToInit() {
+    while (!window.clerk) {
+        await new Promise(resolve => setTimeout(resolve, 10));
+    }
+}

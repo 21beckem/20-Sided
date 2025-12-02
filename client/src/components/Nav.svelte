@@ -16,6 +16,7 @@
         const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
         let clerk = new Clerk(clerkPubKey);
         await clerk.load();
+        window.clerk = clerk;
         if (clerk.isSignedIn) {
             clerk.mountUserButton(signInBtn);
         } else {

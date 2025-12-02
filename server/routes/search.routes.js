@@ -51,19 +51,9 @@ router.get('/', async (req, res) => {
         }
     }
 
-    // Filter by author (anyone, me)
-    // Note: 'me' filtering requires authentication which was removed from scope
-    // For now, 'me' will return empty results
-    if (author === 'me') {
-        // Since authentication was removed, we can't filter by current user
-        // Return empty results or you could add owner field to filter once auth is added
-        filter.owner = null; // This will return no results
-    } else if (author !== 'anyone') {
-        res.status(400).json({
-            worked: false,
-            error: 'Invalid author parameter. Must be "anyone" or "me"'
-        });
-        return;
+    // Filter by author (anyone, [user id])
+    if (author !== 'anyone') {
+        filter.owner = author;
     }
 
     // Filter by text query (search in title and description)
