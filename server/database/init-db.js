@@ -1,4 +1,5 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
+import DefaultMapJson from "./default-map.json" with { type: "json" };
 
 //build the uri for our connection string
 const uri = process.env.MONGO_URI || "";
@@ -53,7 +54,7 @@ const seedMaps = async (db) => {
         description: 'This is my first map. Yay!',
         owner: 'clerk-user-id',
         isPublic: true,
-        map: {},
+        map: DefaultMapJson,
         createdAt: now,
         updatedAt: now
     });
