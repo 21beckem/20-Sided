@@ -100,4 +100,13 @@ a {
     border-radius: 0.5rem;
 }
 
+@media screen and (max-width: 700px) {
+    h1 {
+        font-size: 1.25em;
+    }
+
+    .right {
+        font-size: .75em;
+    }
+}
 </style>
