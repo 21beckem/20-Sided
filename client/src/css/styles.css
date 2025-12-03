@@ -21,13 +21,13 @@ nav {
     height: 65px;
 }
 
-main {
-    width: 100%;
-    min-height: calc(100vh - 65px);
+main {    
+    width: calc(100% - 200px);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    padding: 0;
+    padding: 2rem 100px;
+    gap: 1rem;
     position: relative;
 }
 
@@ -58,7 +58,7 @@ select {
     position: absolute;
     top: 0;
     left: 50%;
-    height: 100vh; /* keep full image height; crop only bottom inside 75vh viewport */
+    object-fit: cover;
     width: auto;
     transform: translateX(-50%);
 }

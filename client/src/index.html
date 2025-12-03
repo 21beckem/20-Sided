@@ -1,10 +1,22 @@
 <!doctype html>
 <html lang="en">
-  <head></head>
+  <head>
+    <style>
+#main {
+  width: 100%;
+  min-height: calc(100vh - 65px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  position: relative;
+}
+    </style>
+  </head>
   <body>
     <nav></nav>
     <script type="module" src="/js/pages/index.js"></script>
-    <main>
+    <div id="main">
       <div id="hero">
         <img src="/images/heroMap.png" alt="Hero Map Image" />
         <div class="infoBox">
@@ -14,7 +26,7 @@
               Be it dungeon or open world locations, 
               our Dragon's Quill map builder is only limited&nbsp;by&nbsp;ones&nbsp;imagination!
             </p>
-            <button class="map-build-btn">Build Map</button>
+            <button class="map-build-btn" onclick="location.href=this.getAttribute('href')" href="/builder/">Build Map</button>
         </div>
       </div>
     </main>

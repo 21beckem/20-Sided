@@ -3,16 +3,27 @@ utils.mountOnEveryPage();
 // import { WorldQuill } from 'http://localhost:5500/javascript/WorldQuill.js';
 import { WorldQuill } from 'https://21beckem.github.io/WorldQuill/javascript/WorldQuill.js';
 
-
-
-// change this to load from server
-const worldData = JSON.parse(localStorage.getItem('worldData'));
-
-WorldQuill.init({
-    containerSelector: 'div.WorldQuill',
-    worldData: worldData
-});
-
+// get the map id from search params
+const urlParams = new URLSearchParams(window.location.search);
+const mapId = urlParams.get('id'); // will be null if not found
+    
+(async()=>{
+    // fetch that map
+    let worldData = null;
+    try {
+        const response = await fetch(`/api/map/${mapId}`);
+        worldData = await response.json();
+    } catch (error) {
+        console.error(error);
+    };
+    
+    // WorldQuill init
+    WorldQuill.init({
+        containerSelector: 'div.WorldQuill',
+        worldData: worldData.map
+    });
+})();
+    
 WorldQuill.onSave = function(worldData) {
     // change this to save to server
     localStorage.setItem('worldData', JSON.stringify(worldData));
