@@ -22,3 +22,11 @@ export async function waitForClerkToInit() {
         await new Promise(resolve => setTimeout(resolve, 10));
     }
 }
+
+export async function isObjectEmpty(obj) {
+  // First, ensure the input is a non-null object
+  if (obj === null || typeof obj !== 'object') {
+    return false; // Or throw an error, depending on desired behavior
+  }
+  return Object.keys(obj).length === 0;
+}

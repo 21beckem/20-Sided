@@ -1,5 +1,6 @@
 import * as utils from '../utils.js';
 utils.mountOnEveryPage();
+import { isObjectEmpty } from '../utils.js';
 
 // Get DOM elements
 const searchInput = document.querySelector('section.search input.search');
@@ -82,19 +83,11 @@ function displayResults(results, count) {
     resultsSection.innerHTML = results.map(createResultCard).join('');
 }
 
-function isObjectEmpty(obj) {
-  // First, ensure the input is a non-null object
-  if (obj === null || typeof obj !== 'object') {
-    return false; // Or throw an error, depending on desired behavior
-  }
-  return Object.keys(obj).length === 0;
-}
-
 // Create a card for each result
 function createResultCard(result) {
     let jsonString = isObjectEmpty(result.map) ? '' : encodeURIComponent(JSON.stringify(result.map));
     return `
-        <a class="result-card" href="/map/${result._id}">
+        <a class="result-card" href="/details/?id=${result._id}">
             <iframe src="https://21beckem.github.io/WorldQuill/preview.html?timestamp=${Date.now()}#${jsonString}" alt="${result.title || 'Untitled'}"></iframe>
             <div class="details">
                 <h3>${result.title || 'Untitled'}</h3>
