@@ -21,7 +21,7 @@ nav {
     height: 65px;
 }
 
-main {
+main {    
     width: calc(100% - 200px);
     display: flex;
     flex-direction: column;
@@ -45,6 +45,87 @@ select {
     border-bottom: 1px solid var(--scroll-accent-color);
     color: var(--scroll-font-color);
     padding: 0 0.5em;
+}
+/* Hero image layout */
+#hero {
+    position: relative;
+    width: 100%;
+    height: 75vh; /* 3/4 of the screen height */
+    overflow: hidden;
+}
+
+#hero img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    object-fit: cover;
+    width: auto;
+    transform: translateX(-50%);
+}
+
+#hero .infoBox {
+    position: absolute;
+    top: 50%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    width: 260px;
+    min-height: 340px;
+    color: var(--scroll-font-color);
+    text-align: center;
+    padding: 1.25rem 1.5rem;
+    /* Parchment color overlaid on paper texture */
+    background-color: var(--scroll-highlight-color);
+    background-image: url("/images/white-crumpled-paper-texture-background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    border: var(--scroll-accent-color) 2px solid;
+    border-radius: 50px 40px 50px 40px;
+    box-shadow:
+        6px 6px 0 rgba(0, 0, 0, 0.55),
+        10px 10px 18px rgba(0, 0, 0, 0.35);
+}
+
+#hero h2 {
+    font-family: var(--scroll-font);
+}
+
+#hero .infoBox p {
+    font-family: var(--scroll-font);
+    margin: 0.5rem 0 0;
+    line-height: 1.4;
+}
+
+#hero .map-build-btn {
+    margin-top: 1rem;
+    padding: 0.6rem 1.8rem;
+    font-family: var(--scroll-font);
+    font-size: 1rem;
+    background: linear-gradient(180deg, #a05a23 0%, #7c4317 60%, #5a2f0f 100%);
+    color: var(--scroll-highlight-color);
+    border: 2px solid #3b1c07;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow:
+        0 4px 0 #3b1c07,
+        0 6px 8px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+#hero .map-build-btn:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 5px 0 #3b1c07,
+        0 8px 10px rgba(0, 0, 0, 0.45);
+}
+
+#hero .map-build-btn:active {
+    transform: translateY(2px);
+    box-shadow:
+        0 2px 0 #3b1c07,
+        0 3px 6px rgba(0, 0, 0, 0.4);
 }
 
 .btn {

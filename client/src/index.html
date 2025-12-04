@@ -2,38 +2,32 @@
 <html lang="en">
   <head>
     <style>
-      main{
-        display: flex;
-      }
-      h2{
-        font-family: var(--scroll-font);
-      }
-      .infoBox{
-        box-sizing: 5em;
-        flex-wrap: wrap;
-        margin: 0 auto;
-        color: var(--scroll-font-color);
-        text-align: center;
-        padding: 1rem;
-        background-color: var(--scroll-highlight-color);
-        border: var(--scroll-accent-color) 2px solid;
-        border-radius: 50px 40px 50px 40px;
-        
-      }
+#main {
+  width: 100%;
+  min-height: calc(100vh - 65px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  position: relative;
+}
     </style>
   </head>
   <body>
     <nav></nav>
     <script type="module" src="/js/pages/index.js"></script>
-    <main>
-      <div class="infoBox">
-          <h2>Dragon's Quill</h2>
-          <p>
-            Gather around young explorers and create a map for your party to inhabit. <br>
-            Be it dungeon or open world locations, <br>
-            our Dragon's Quill map builder is only limited by <br> 
-            ones imagination!
-          </p>
+    <div id="main">
+      <div id="hero">
+        <img src="/images/heroMap.png" alt="Hero Map Image" />
+        <div class="infoBox">
+            <h2>Dragon's Quill</h2>
+            <p>
+              Gather around young explorers and create a map for your party to inhabit. 
+              Be it dungeon or open world locations, 
+              our Dragon's Quill map builder is only limited&nbsp;by&nbsp;ones&nbsp;imagination!
+            </p>
+            <button class="map-build-btn" onclick="location.href=this.getAttribute('href')" href="/builder/">Build Map</button>
+        </div>
       </div>
     </main>
   </body>
