@@ -57,7 +57,9 @@ router.get('/:id', async (req, res) => {
     let result = await mongodb.getDb().collection('maps').findOne({
         _id: new mongodb.ObjectId(id)
     });
-    res.status(200).json(result);
+    res.status(200).json({
+        worked: true,
+        result: result});
 });
 
 // - `PUT /maps/:id` - Update map
@@ -133,6 +135,7 @@ router.put('/:id', authorize, async (req, res) => {
         id: id
     });
 });
+
 
 
 export default router; // Export the router to use it in the main file

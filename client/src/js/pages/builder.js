@@ -10,17 +10,21 @@ const mapId = urlParams.get('id'); // will be null if not found
 (async()=>{
     // fetch that map
     let worldData = null;
-    try {
-        const response = await fetch(`/api/map/${mapId}`);
-        worldData = await response.json();
-    } catch (error) {
-        console.error(error);
-    };
+    if (mapId) {
+        try {
+            const fetching = await fetch(`/api/map/${mapId}`);
+            let response = await fetching.json();
+            if (!response.worked) return;
+            worldData = response.result.map;
+        } catch (error) {
+            console.error(error);
+        };
+    }
     
     // WorldQuill init
     WorldQuill.init({
         containerSelector: 'div.WorldQuill',
-        worldData: worldData.map
+        worldData: worldData
     });
 })();
     
@@ -32,4 +36,5 @@ WorldQuill.onSave = function(worldData) {
 WorldQuill.onSaveToCollection = function(worldData) {
     // save to server as new map
     //   maybe have a popup asking for name and/or description?
+    console.log('Saving to collection:', worldData);
 };

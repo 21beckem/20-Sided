@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <style>
-
+iframe {
+  aspect-ratio: 1;
+}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
   </head>
@@ -12,17 +14,19 @@
     <main>
 
       <section class="item-detail-container">
-        <img class="preview-img">
-        <h2 class="item-name">Chuck Norris' Map</h2>
-        <div class="btn-info"> 
-            <button class="btn" id="edit-btn">Edit</button>
-            <button class="btn" id="play-btn">Play</button>
-            <button class="btn" id="copy-btn">Copy</button>
-        </div>
-        <div class="text-info">
-            <p class="item-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab quaerat veritatis voluptates ex odit nihil eaque, ipsum tenetur aut harum libero recusandae facere quas deserunt facilis esse. Impedit, sapiente voluptates!</p>
-            <p class="type">Type: Chunk/Map</p>
-            <p class="author">Author: Chuck Norris</p>
+        <iframe class="preview-img"></iframe>
+        <div style="display: flex; gap:1.5rem; flex-direction: column;">
+          <h2 class="item-name"></h2>
+          <div class="btn-info"> 
+              <a class="map-build-btn" id="edit-btn">Edit</a>
+              <!-- <a class="btn" id="play-btn">Play</a> -->
+              <a class="map-build-btn" id="copy-btn">Copy</a>
+          </div>
+          <div class="text-info">
+              <p class="item-info"></p>
+              <p class="type">Type:</p>
+              <p class="author">Author:</p>
+          </div>
         </div>
 
       </section>

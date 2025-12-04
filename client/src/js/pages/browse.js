@@ -1,6 +1,5 @@
 import * as utils from '../utils.js';
 utils.mountOnEveryPage();
-import { isObjectEmpty } from '../utils.js';
 
 // Get DOM elements
 const searchInput = document.querySelector('section.search input.search');
@@ -85,7 +84,7 @@ function displayResults(results, count) {
 
 // Create a card for each result
 function createResultCard(result) {
-    let jsonString = isObjectEmpty(result.map) ? '' : encodeURIComponent(JSON.stringify(result.map));
+    let jsonString = utils.isObjectEmpty(result.map) ? '' : encodeURIComponent(JSON.stringify(result.map));
     return `
         <a class="result-card" href="/details/?id=${result._id}">
             <iframe src="https://21beckem.github.io/WorldQuill/preview.html?timestamp=${Date.now()}#${jsonString}" alt="${result.title || 'Untitled'}"></iframe>
@@ -93,8 +92,8 @@ function createResultCard(result) {
                 <h3>${result.title || 'Untitled'}</h3>
                 <p>${result.description || 'No description available'}</p>
                 <div class="meta">
-                    <span class="type">${result.type || 'Unknown'}</span>
-                    <span class="author">${result.author || 'Unknown'}</span>
+                    <span class="type" style="margin-right: 1rem;"><b>Type:</b> ${result.type || 'Unknown'}</span>
+                    <span class="author"><b>Author:</b> ${result.author || 'Unknown'}</span>
                 </div>
             </div>
         </a>

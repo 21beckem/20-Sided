@@ -1,14 +1,10 @@
 import * as utils from '../utils.js';
 utils.mountOnEveryPage();
-import { isObjectEmpty } from '../utils.js';
-
 
 async function retrieveDetails () {
-    const params = new URLSearchParams({
-        type: window.location.search
-    })
+    const params = new URLSearchParams(window.location.search);
     try {
-        const response = await fetch(`/api/map/${id}`);
+        const response = await fetch(`/api/map/${params.get('id')}`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -17,7 +13,7 @@ async function retrieveDetails () {
         const data = await response.json();
 
         if (data.worked) {
-            createItemDetails(data.results);
+            createItemDetails(data.result);
         } else {
             new Error(data.error || 'Failed to fetch results');
         }
@@ -28,11 +24,33 @@ async function retrieveDetails () {
 }
 
 function createItemDetails (result) {
-    
-    const itemContainer = document.querySelector('.item-detail-container')
-    const previewImage = document.querySelector('.preview-img')
-    let jsonString = isObjectEmpty(result.map) ? '' : encodeURIComponent(JSON.stringify(result.map));
-    previewImage.innerHTML = `
-<iframe src="https://21beckem.github.io/WorldQuill/preview.html?timestamp=${Date.now()}#${jsonString}" alt="${result.title || 'Untitled'}"></iframe>
-`
+    // select document elements and add them dynamically
+    const itemName = document.querySelector('.item-name');
+    itemName.innerHTML = result.title;
+    const itemInfo = document.querySelector('.item-info');
+    itemInfo.innerHTML = result.description;
+    const type = document.querySelector('.type');
+    type.innerHTML = '<b>Type:</b> ' + (result.type || 'Unknown');
+    const author = document.querySelector('.author');
+    author.innerHTML = '<b>Author:</b> ' + (result.author || 'Unknown');
+    const itemContainer = document.querySelector('.item-detail-container');
+    const previewImage = document.querySelector('.preview-img');
+
+    // set image (iframe)
+    let jsonString = utils.isObjectEmpty(result.map) ? '' : encodeURIComponent(JSON.stringify(result.map));
+    previewImage.src = `https://21beckem.github.io/WorldQuill/preview.html?timestamp=${Date.now()}#${jsonString}`;
+
+    // set button links 
+    const editButtonUrl = `/builder/?id=${result._id}`;
+    const editButton = document.querySelector('#edit-btn')
+    editButton.setAttribute("href", editButtonUrl)
+
+    const copyButton = document.querySelector('#copy-btn')
+    copyButton.addEventListener('click', async () => {
+        let res = await navigator.clipboard.writeText(result.map);
+        console.log('copy response: ', res);
+        setTimeout('Copied!', 3000);
+    });
 }
+
+retrieveDetails()
