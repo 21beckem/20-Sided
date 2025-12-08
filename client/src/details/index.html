@@ -5,6 +5,9 @@
 iframe {
   aspect-ratio: 1;
 }
+.showIfIOwnThis {
+  display: none;
+}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
   </head>
@@ -16,16 +19,15 @@ iframe {
       <section class="item-detail-container">
         <iframe class="preview-img"></iframe>
         <div style="display: flex; gap:1.5rem; flex-direction: column;">
-          <input class="item-name"></input>
+          <input class="item-name invisible" style="font-size: 2rem;" disabled></input>
           <div class="btn-info"> 
-              <a class="map-build-btn" id="edit-btn">Edit</a>
+              <a class="map-build-btn" id="edit-btn">View / Edit</a>
               <!-- <a class="btn" id="play-btn">Play</a> -->
-              <a class="map-build-btn" id="copy-btn">Copy</a>
-              <a class="map-build-btn" id="rename-btn">Rename</a>
-              <a class="map-build-btn" id="desc-btn">Edit Description</a>
+              <a class="map-build-btn" id="copy-btn">Copy to Clipboard</a>
+              <a class="map-build-btn" id="delete-btn" style="display: none;">Delete</a>
           </div>
           <div class="text-info">
-              <p class="item-info"></p>
+              <p><textarea class="item-info invisible" style="width: 100%;" disabled></textarea></p>
               <p class="type">Type:</p>
               <p class="author">Author:</p>
           </div>

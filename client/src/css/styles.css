@@ -7,7 +7,8 @@
     --scroll-font: 'IM Fell English', 'Times New Roman', serif;
     --scroll-font-color: #2b1708;
     --scroll-accent-color: #7c4317;
-    --scroll-highlight-color: #f9e1b0;
+    --scroll-highlight-color: rgb(249, 225, 176);
+    --section-background-rgb: 249, 225, 176;
 }
 html, body {
     margin: 0;
@@ -35,10 +36,9 @@ section {
     width: 100%;
     max-width: 1300px;
     background-color: var(--scroll-highlight-color);
-    background-image: url("/images/white-crumpled-paper-texture-background.jpg");
+    background-image: linear-gradient(to bottom, rgba(var(--section-background-rgb), 0.7), rgba(var(--section-background-rgb), 0.7)), url("/images/white-crumpled-paper-texture-background.jpg");
     background-size: cover;
     background-position: center;
-    background-blend-mode: multiply;
     border: var(--scroll-accent-color) 2px solid;
     padding: 10px;
     border-radius: 0.25rem;
@@ -102,7 +102,16 @@ select {
     line-height: 1.4;
 }
 
+input.invisible, textarea.invisible {
+    border: none;
+    background: none;
+    color: var(--scroll-font-color);
+    font-family: var(--scroll-font);
+    font-size: inherit;
+}
+
 .map-build-btn {
+    display: inline-block;
     margin-top: 1rem;
     padding: 0.6rem 1.8rem;
     font-family: var(--scroll-font);
@@ -174,7 +183,6 @@ select {
     grid-row: 3;
     grid-column: 2;
     font-size: 1.25em;
-    margin-right: 200px;
 }
 
 .item-name {

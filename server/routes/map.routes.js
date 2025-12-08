@@ -40,8 +40,8 @@ router.post('/', authorize, async (req, res) => {
     // set type based on number of chunks
     json.type = json.map.children.length > 1 ? 'map' : 'chunk';
 
-    // set the owner
-    json.owner = res.locals.uid;
+    // set the author
+    json.author = res.locals.uid;
 
     let result = await mongodb.getDb().collection('maps').insertOne(json);
 
@@ -56,7 +56,21 @@ router.get('/:id', async (req, res) => {
     });
     res.status(200).json({
         worked: true,
-        result: result});
+        result: result
+    });
+});
+
+// `DELETE /maps/:id` - Delete specific map
+router.delete('/:id', authorize, async (req, res) => {
+    const {id} = req.params;
+    let result = await mongodb.getDb().collection('maps').deleteOne({
+        _id: new mongodb.ObjectId(id),
+        author: res.locals.uid
+    });
+    res.status(200).json({
+        worked: true,
+        result: result
+    });
 });
 
 // - `PUT /maps/:id` - Update map
@@ -111,7 +125,7 @@ router.put('/:id', authorize, async (req, res) => {
     let result = await mongodb.getDb().collection('maps').updateOne(
         {
             _id: new mongodb.ObjectId(id),
-            owner: res.locals.uid
+            author: res.locals.uid
         },
         { $set: json }
     );
