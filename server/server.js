@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 // Serve static files from the public folder
+app.use(express.json({ limit: '50mb' }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true })); // to parse the incoming requests with URL parameters
 app.use(express.json()); // To parse the incoming requests with JSON payloads

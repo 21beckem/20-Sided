@@ -38,7 +38,7 @@ const seedMaps = async (db) => {
     if ( !(await db.collection('maps').drop()) ) {
         throw new Error("Collection 'maps' could not be dropped");
     }
-    console.log("Collection 'users' dropped successfully");
+    console.log("Collection 'maps' dropped successfully");
 
     // create a new collection
     if ( !(await db.createCollection('maps')) ) {

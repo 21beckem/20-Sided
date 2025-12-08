@@ -7,6 +7,7 @@ import { WorldQuill } from 'https://21beckem.github.io/WorldQuill/javascript/Wor
 const urlParams = new URLSearchParams(window.location.search);
 let mapId = urlParams.get('id'); // will be null if not found
 let mapDoc = null;
+let thisIsMyMap = false;
     
 (async()=>{
     // fetch that map
@@ -33,12 +34,15 @@ let mapDoc = null;
 async function getAuthHeader () {
     await utils.waitForClerkToInit();
     if (window.clerk?.isSignedIn && window.clerk.user?.id) {
-        return `Bearer ${window.clerk.user.id}`;
+        return  {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${window.clerk.user.id}`
+        };
     }
     return null;
 }
 
-function buildPayload(worldData) {
+function buildPayload(worldData, forcePromptForNewTitleAndDescription=false) {
     // preserve existing doc fields when editing
     const base = mapDoc ? {...mapDoc} : {};
     // never send _id back in the payload
@@ -47,41 +51,36 @@ function buildPayload(worldData) {
     let title = base.title || worldData.title || 'Untitled';
     let description = base.description || worldData.description || '';
 
-    if (window.clerk?.user.id !== base.author) {
+    thisIsMyMap = window.clerk?.user.id === base.author;
+    if (thisIsMyMap || forcePromptForNewTitleAndDescription) {
         title = prompt('What would you like to name this map?', title) || title;
-        description = prompt('Enter a description if you\'d like:', description) || description;
+        description = prompt('Enter a description if you would like:', description) || description;
     }
-
 
     return {
         ...base,
         map: worldData,
         title,
         description,
-        author_name: base.author || window.clerk?.user?.fullName || window.clerk?.user?.username,
+        author_name: window.clerk?.user?.fullName || window.clerk?.user?.username,
         author: window.clerk?.user?.id
     };
 }
 
 async function persistMap(worldData) {
-    const authHeader = await getAuthHeader();
-    if (!authHeader) {
-        alert('Please sign in to save your map.');
-        return;
-    }
+    const headers = await getAuthHeader();
+    if (!headers)
+        return alert('Please sign in to save your map.');
 
     const payload = buildPayload(worldData);
-    const endpoint = mapId ? `/api/map/${mapId}` : '/api/map';
-    const method = mapId ? 'PUT' : 'POST';
+    const endpoint = thisIsMyMap ? `/api/map/${mapId}` : '/api/map';
+    const method = thisIsMyMap ? 'PUT' : 'POST';
 
     const response = await fetch(endpoint, {
         method,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': authHeader
-        },
+        headers,
         body: JSON.stringify({
-            json: JSON.stringify(payload)
+            json: payload
         })
     });
 
@@ -90,7 +89,7 @@ async function persistMap(worldData) {
         throw new Error(result.error || 'Failed to save map');
     }
 
-    if (!mapId && result.insertedId) {
+    if (result.insertedId) {
         mapId = result.insertedId;
         urlParams.set('id', mapId);
         window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
@@ -98,6 +97,27 @@ async function persistMap(worldData) {
 
     // keep latest map doc in memory for future saves
     mapDoc = {...payload};
+}
+
+async function saveToCollection(worldData) {
+    const headers = await getAuthHeader();
+    if (!headers)
+        return alert('Please sign in to save to your collection.');
+
+    const payload = buildPayload(worldData, true);
+
+    const response = await fetch('/api/map/', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+            json: payload
+        })
+    });
+
+    const result = await response.json();
+    if (!response.ok || result.worked === false) {
+        throw new Error(result.error || 'Failed to save to collection');
+    }
 }
     
 WorldQuill.onSave = async function(worldData) {
@@ -112,10 +132,10 @@ WorldQuill.onSave = async function(worldData) {
     
 WorldQuill.onSaveToCollection = async function(worldData) {
     try {
-        await persistMap(worldData);
+        await saveToCollection(worldData);
         console.log('Saved to collection:', worldData);
     } catch (err) {
         console.error(err);
-        alert('Could not save map. Please try again.');
+        alert('Could not save to collection. Please try again.');
     }
 };

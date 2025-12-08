@@ -12,18 +12,15 @@ router.post('/', authorize, async (req, res) => {
         });
         return;
     }
-    
-    let json = false;
-    try {
-        json = JSON.parse(req.body.json);
-        
-    } catch (e) {
+
+    if (typeof req.body.json !== 'object') {
         res.status(400).json({
             worked: false,
             error: 'Invalid JSON'
         });
         return;
     }
+    let json = req.body.json;
 
     if (!json.map) {
         res.status(400).json({
@@ -43,8 +40,8 @@ router.post('/', authorize, async (req, res) => {
     // set type based on number of chunks
     json.type = json.map.children.length > 1 ? 'map' : 'chunk';
 
-    // set the author
-    json.author = res.locals.uid;
+    // set the owner
+    json.owner = res.locals.uid;
 
     let result = await mongodb.getDb().collection('maps').insertOne(json);
 
@@ -83,16 +80,14 @@ router.put('/:id', authorize, async (req, res) => {
         return;
     }
 
-    let json = false;
-    try {
-        json = JSON.parse(req.body.json);
-    } catch (e) {
+    if (typeof req.body.json !== 'object') {
         res.status(400).json({
             worked: false,
             error: 'Invalid JSON'
         });
         return;
     }
+    let json = req.body.json;
 
     if (!json.map) {
         res.status(400).json({
@@ -116,7 +111,7 @@ router.put('/:id', authorize, async (req, res) => {
     let result = await mongodb.getDb().collection('maps').updateOne(
         {
             _id: new mongodb.ObjectId(id),
-            author: res.locals.uid
+            owner: res.locals.uid
         },
         { $set: json }
     );
@@ -124,7 +119,7 @@ router.put('/:id', authorize, async (req, res) => {
     if (result.matchedCount === 0) {
         res.status(404).json({
             worked: false,
-            error: 'Map not found'
+            error: 'Map not found or you do not own it'
         });
         return;
     }
