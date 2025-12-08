@@ -11,6 +11,7 @@ async function retrieveDetails () {
         }
 
         const data = await response.json();
+        console.log('API Response:', data);
 
         if (data.worked) {
             createItemDetails(data.result);
@@ -47,9 +48,15 @@ function createItemDetails (result) {
 
     const copyButton = document.querySelector('#copy-btn')
     copyButton.addEventListener('click', async () => {
-        let res = await navigator.clipboard.writeText(result.map);
-        console.log('copy response: ', res);
+        let jsonString = utils.isObjectEmpty(result.map) ? '' : encodeURIComponent(JSON.stringify(result.map));
+        try {
+        let res = await navigator.clipboard.writeText(jsonString);
+        console.log('copy response: ', res);jsonString
         setTimeout('Copied!', 3000);
+        } catch (error) {
+            console.error('Error fetching results:', error);
+            throw new Error('Failed to load results. Please try again.');
+        }
     });
 }
 
