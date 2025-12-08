@@ -93,7 +93,7 @@ function createResultCard(result) {
                 <p>${result.description || 'No description available'}</p>
                 <div class="meta">
                     <span class="type" style="margin-right: 1rem;"><b>Type:</b> ${result.type || 'Unknown'}</span>
-                    <span class="author"><b>Author:</b> ${result.author || 'Unknown'}</span>
+                    <span class="author"><b>Author:</b> ${result.author_name || 'Unknown'}</span>
                 </div>
             </div>
         </a>

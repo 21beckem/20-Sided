@@ -44,12 +44,22 @@ function buildPayload(worldData) {
     // never send _id back in the payload
     delete base._id;
 
+    let title = base.title || worldData.title || 'Untitled';
+    let description = base.description || worldData.description || '';
+
+    if (window.clerk?.user.id !== base.author) {
+        title = prompt('What would you like to name this map?', title) || title;
+        description = prompt('Enter a description if you\'d like:', description) || description;
+    }
+
+
     return {
         ...base,
         map: worldData,
-        title: base.title || worldData.title || 'Untitled',
-        description: base.description || worldData.description || '',
-        author: base.author || window.clerk?.user?.fullName || window.clerk?.user?.username || window.clerk?.user?.id,
+        title,
+        description,
+        author_name: base.author || window.clerk?.user?.fullName || window.clerk?.user?.username,
+        author: window.clerk?.user?.id
     };
 }
 

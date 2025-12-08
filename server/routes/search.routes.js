@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
 
     // Filter by author (anyone, [user id])
     if (author !== 'anyone') {
-        filter.owner = author;
+        filter.author = author;
     }
 
     // Filter by text query (search in title and description)

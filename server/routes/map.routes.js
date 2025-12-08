@@ -43,8 +43,8 @@ router.post('/', authorize, async (req, res) => {
     // set type based on number of chunks
     json.type = json.map.children.length > 1 ? 'map' : 'chunk';
 
-    // set the owner
-    json.owner = res.locals.uid;
+    // set the author
+    json.author = res.locals.uid;
 
     let result = await mongodb.getDb().collection('maps').insertOne(json);
 
@@ -116,7 +116,7 @@ router.put('/:id', authorize, async (req, res) => {
     let result = await mongodb.getDb().collection('maps').updateOne(
         {
             _id: new mongodb.ObjectId(id),
-            owner: res.locals.uid
+            author: res.locals.uid
         },
         { $set: json }
     );

@@ -33,7 +33,7 @@ function createItemDetails (result) {
     const type = document.querySelector('.type');
     type.innerHTML = '<b>Type:</b> ' + (result.type || 'Unknown');
     const author = document.querySelector('.author');
-    author.innerHTML = '<b>Author:</b> ' + (result.author || 'Unknown');
+    author.innerHTML = '<b>Author:</b> ' + (result.author_name || 'Unknown');
     const itemContainer = document.querySelector('.item-detail-container');
     const previewImage = document.querySelector('.preview-img');
 
@@ -48,16 +48,38 @@ function createItemDetails (result) {
 
     const copyButton = document.querySelector('#copy-btn')
     copyButton.addEventListener('click', async () => {
-        let jsonString = utils.isObjectEmpty(result.map) ? '' : encodeURIComponent(JSON.stringify(result.map));
+        let jsonString = utils.isObjectEmpty(result.map) ? '' : JSON.stringify(result.map);
         try {
         let res = await navigator.clipboard.writeText(jsonString);
-        console.log('copy response: ', res);jsonString
-        setTimeout('Copied!', 3000);
+        console.log('copy response: ', res);
+        alert('Copied to Clipboard!')
         } catch (error) {
             console.error('Error fetching results:', error);
             throw new Error('Failed to load results. Please try again.');
         }
     });
 }
+
+async function renameTitle(result) {
+    try {
+    const itemTitle = document.querySelector('.item-name');
+    itemTitle.addEventListener('input', async () => {
+        itemTitle.textContent = `${result.title}`
+    })
+    } catch (error) {
+        throw new Error('Failed to change title.')
+    }
+}
+
+async function editDescription() {
+    const descriptionButton = document.querySelector('#desc-btn')
+    const itemDescription = document.querySelector('#item-info')
+    descriptionButton.addEventListener('change', async () => {
+        
+    })
+}
+
+const renameButton = document.querySelector('#rename-btn');
+renameButton.addEventListener('click', renameTitle);
 
 retrieveDetails()

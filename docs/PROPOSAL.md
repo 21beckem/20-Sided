@@ -109,7 +109,8 @@ The Dragon's Quill addresses the need for an accessible, web-based virtual table
   _id: ObjectId,
   title: String (required),
   description: String,
-  owner: ObjectId (ref: User),
+  author_name: String (required)
+  author: ObjectId (ref: User),
   isPublic: Boolean (default: false),
   map: Mixed (JSON structure representing map layout),
   createdAt: Date,

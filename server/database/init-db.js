@@ -49,10 +49,11 @@ const seedMaps = async (db) => {
     // insert test user
     const now = new Date().toISOString();
     const result = await db.collection('maps').insertOne({
-        title: 'My First Map',
+        title: 'River Valley',
         type: 'map',
-        description: 'This is my first map. Yay!',
-        owner: 'clerk-user-id',
+        description: 'Do you dare to explore?',
+        author: 'clerk-user-id',
+        author_name: 'The Dragons Quill',
         isPublic: true,
         map: DefaultMapJson,
         createdAt: now,
