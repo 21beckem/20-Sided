@@ -43,6 +43,10 @@ async function createItemDetails(result, regeneratePreviewImg) {
     document.querySelector('#edit-btn').href = `/builder/?id=${result._id}`;
     
     // show/hide enable/disable stuff
+    if (result.type === 'chunk')
+        document.querySelector('#copy-btn').style.display = 'unset';
+    else
+        document.querySelector('#copy-btn').style.display = 'none';
     await utils.waitForClerkToInit();
     if (window.clerk.user.id === result.author) {
         document.querySelector('.item-name').disabled = false;

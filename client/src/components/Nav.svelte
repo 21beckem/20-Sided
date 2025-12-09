@@ -44,6 +44,7 @@
     <div class="right">
         <span bind:this={signInBtn} class="register-btn"></span>
         <a href="/browse/">Browse</a>
+        <a href="/browse/?author=me">My Collection</a>
     </div>
 </div>
 

@@ -113,5 +113,15 @@ searchInput.addEventListener('input', debouncedSearch);
 typeSelect.addEventListener('change', fetchResults);
 authorSelect.addEventListener('change', fetchResults);
 
+
+// Load filters from URL
+new URLSearchParams(window.location.search).forEach((value, key) => {
+    if (key === 'type') {
+        typeSelect.value = value;
+    } else if (key === 'author') {
+        authorSelect.value = value;
+    }
+});
+
 // Initial load
 fetchResults();

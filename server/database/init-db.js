@@ -1,5 +1,5 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
-import DefaultMapJson from "./default-map.json" with { type: "json" };
+import DefaultMapJsons from "./default-maps.json" with { type: "json" };
 
 //build the uri for our connection string
 const uri = process.env.MONGO_URI || "";
@@ -48,19 +48,15 @@ const seedMaps = async (db) => {
 
     // insert test user
     const now = new Date().toISOString();
-    const result = await db.collection('maps').insertOne({
-        title: 'River Valley',
-        type: 'map',
-        description: 'Do you dare to explore?',
-        author: 'clerk-user-id',
-        author_name: 'The Dragons Quill',
-        isPublic: true,
-        map: DefaultMapJson,
+    const result = await db.collection('maps').insertMany(DefaultMapJsons.map(m => {return {
+        ...m,
+        type: (m.map.children.length > 1) ? 'map' : 'chunk',
+        author: 'default-maps-user-id',
         createdAt: now,
         updatedAt: now
-    });
+    }}));
     
-    console.log(`1 new listing created in 'users' with the following id:`, result.insertedId);
+    console.log(`${result.insertedCount} new listing(s) created in 'maps' with the following ids:`, result.insertedIds);
   } catch (error) {
     console.error(error.message);
   }
