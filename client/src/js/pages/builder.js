@@ -3,6 +3,8 @@ utils.mountOnEveryPage();
 // import { WorldQuill } from 'http://localhost:5500/javascript/WorldQuill.js';
 import { WorldQuill } from 'https://21beckem.github.io/WorldQuill/javascript/WorldQuill.js';
 
+const API_BASE_URL = import.meta.env.VITE_SERVER_URI || '';
+
 // get the map id from search params
 const urlParams = new URLSearchParams(window.location.search);
 let mapId = urlParams.get('id'); // will be null if not found
@@ -14,7 +16,7 @@ let thisIsMyMap = false;
     let worldData = null;
     if (mapId) {
         try {
-            const fetching = await fetch(`/api/map/${mapId}`);
+            const fetching = await fetch(`${API_BASE_URL}/map/${mapId}`);
             let response = await fetching.json();
             if (!response.worked) return;
             mapDoc = response.result;
@@ -73,7 +75,7 @@ async function persistMap(worldData) {
         return alert('Please sign in to save your map.');
 
     const payload = buildPayload(worldData);
-    const endpoint = thisIsMyMap ? `/api/map/${mapId}` : '/api/map';
+    const endpoint = thisIsMyMap ? `${API_BASE_URL}/map/${mapId}` : `${API_BASE_URL}/map`;
     const method = thisIsMyMap ? 'PUT' : 'POST';
 
     const response = await fetch(endpoint, {
@@ -106,7 +108,7 @@ async function saveToCollection(worldData) {
 
     const payload = buildPayload(worldData, true);
 
-    const response = await fetch('/api/map/', {
+    const response = await fetch(`${API_BASE_URL}/map/`, {
         method: 'POST',
         headers,
         body: JSON.stringify({

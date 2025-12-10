@@ -1,11 +1,13 @@
 import * as utils from '../utils.js';
 utils.mountOnEveryPage();
+
+const API_BASE_URL = import.meta.env.VITE_SERVER_URI || '';
 const params = new URLSearchParams(window.location.search);
 let mapDoc = null;
 
 async function retrieveDetails () {
     try {
-        const response = await fetch(`/api/map/${params.get('id')}`);
+        const response = await fetch(`${API_BASE_URL}/map/${params.get('id')}`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -65,7 +67,7 @@ function createEventListeners() {
 
     document.querySelector('#delete-btn').addEventListener('click', async () => {
         if (confirm('Are you sure you want to delete this map?')) {
-            const response = await fetch(`/api/map/${params.get('id')}`, {
+            const response = await fetch(`${API_BASE_URL}/map/${params.get('id')}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +97,7 @@ async function putUpdate(attrToUpdate, newValue) {
     const newData = {...mapDoc};
     delete newData._id;
     newData[attrToUpdate] = newValue;
-    const response = await fetch(`/api/map/${params.get('id')}`, {
+    const response = await fetch(`${API_BASE_URL}/map/${params.get('id')}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

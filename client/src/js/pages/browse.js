@@ -1,6 +1,8 @@
 import * as utils from '../utils.js';
 utils.mountOnEveryPage();
 
+const API_BASE_URL = import.meta.env.VITE_SERVER_URI || '';
+
 // Get DOM elements
 const searchInput = document.querySelector('section.search input.search');
 const typeSelect = document.querySelector('select[name="type"]');
@@ -48,7 +50,7 @@ async function fetchResults() {
     }
 
     try {
-        const response = await fetch(`/api/search?${params.toString()}`);
+        const response = await fetch(`${API_BASE_URL}/search?${params.toString()}`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
