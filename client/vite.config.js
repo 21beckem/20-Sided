@@ -8,6 +8,7 @@ export default defineConfig({
   root: 'src/',
   server: {
     host: true,
+    allowedHosts: ["two0-sided.onrender.com"],
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
