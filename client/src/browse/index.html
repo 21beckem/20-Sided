@@ -132,8 +132,17 @@ section.filter div.filters label {
       </section>
 
 
-      <section class="results">
-        <header>Results</header>
+      <section class="results" style="position: relative;">
+        <header>
+          <span id="results-count">Results</span>
+          <a class="map-build-btn" style="
+            position: absolute;
+            right: 12px;
+            top: 3px;
+            margin-top: 0;
+            pointer-events: all;
+          " href="/builder/">Create New</a>
+        </header>
         <div id="results"></div>
       </section>
     </main>

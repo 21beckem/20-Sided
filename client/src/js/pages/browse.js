@@ -7,7 +7,7 @@ const API_BASE_URL = import.meta.env.VITE_SERVER_URI || '';
 const searchInput = document.querySelector('section.search input.search');
 const typeSelect = document.querySelector('select[name="type"]');
 const authorSelect = document.querySelector('select[name="author"]');
-const resultsHeader = document.querySelector('section.results > header');
+const resultsCount = document.querySelector('section.results > header #results-count');
 const resultsSection = document.querySelector('section.results #results');
 
 // Debounce function to prevent too many API calls
@@ -75,7 +75,7 @@ function displayResults(results, count) {
     resultsSection.innerHTML = '';
 
     // Update header with count
-    resultsHeader.textContent = `Results (${count})`;
+    resultsCount.textContent = ` (${count})`;
 
     if (results.length === 0) {
         return displayError('No results found');
