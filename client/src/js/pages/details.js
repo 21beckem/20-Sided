@@ -59,6 +59,10 @@ async function createItemDetails(result, regeneratePreviewImg) {
         document.querySelector('.item-info').disabled = true;
         document.querySelector('#delete-btn').style.display = 'none';
     }
+
+    // set placeholders
+    document.querySelector('.item-name').placeholder = 'Click & type here to enter a title...';
+    document.querySelector('.item-info').placeholder = 'Click & type here to enter a description...';
 }
 
 function createEventListeners() {

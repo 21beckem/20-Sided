@@ -54,9 +54,9 @@ function buildPayload(worldData, forcePromptForNewTitleAndDescription=false) {
     let description = base.description || worldData.description || '';
 
     thisIsMyMap = window.clerk?.user.id === base.author;
-    if (thisIsMyMap || forcePromptForNewTitleAndDescription) {
-        title = prompt('What would you like to name this map?', title) || title;
-        description = prompt('Enter a description if you would like:', description) || description;
+    if (!thisIsMyMap || forcePromptForNewTitleAndDescription) {
+        title = prompt('What would you like to name this map?', title);
+        if (title === null) return null;
     }
 
     return {
@@ -75,6 +75,7 @@ async function persistMap(worldData) {
         return alert('Please sign in to save your map.');
 
     const payload = buildPayload(worldData);
+    if (!payload) return;
     const endpoint = thisIsMyMap ? `${API_BASE_URL}/map/${mapId}` : `${API_BASE_URL}/map`;
     const method = thisIsMyMap ? 'PUT' : 'POST';
 
