@@ -72,10 +72,8 @@ async function fetchResults() {
 // Display search results
 function displayResults(results, count) {
 
-    resultsSection.innerHTML = '';
-
     // Update header with count
-    resultsCount.textContent = ` (${count})`;
+    resultsCount.innerHTML = `Results <span style="font-family: ui-serif;">${count}</span>`;
 
     if (results.length === 0) {
         return displayError('No results found');
